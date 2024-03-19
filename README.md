@@ -1,7 +1,7 @@
 # Hangman_Game_By_Deciders
 18.3.24 <br>
         Task 1: <br>
-              Decided the name of the team.<br>
+              Decided the name of the team.
               Team name is DECIDERS. <br>
         Task 2: <br>
               Jatin Bhardwaj -- 2310992109 -- Team Leader <br>
