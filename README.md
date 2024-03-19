@@ -2,7 +2,7 @@
 18.3.24 <br>
         Task 1: <br>
               Decided the name of the team.
-              Team name is DECIDERS. <br>
+              Team name is 'DECIDERS'. <br>
         Task 2: <br>
               Jatin Bhardwaj -- 2310992109 -- Team Leader <br>
               Navdeep Singh -- 2310992162 -- Developer <br>
