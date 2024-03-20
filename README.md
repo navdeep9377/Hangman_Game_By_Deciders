@@ -4,9 +4,9 @@
 Hangman is a simple guessing game where the player attempts to guess a word letter by letter. With each incorrect guess, a part of the hangman is drawn. The player wins if they guess all the letters in the word before the hangman is fully drawn, otherwise, they lose.
 
 ## Team Members
-Jatin Bhardwaj : 2310992109 : Project Manager
-Navdeep Singh : 2310992162 : Developer
-Navjot Singh : 2310992163 : Tester
+Jatin Bhardwaj : 2310992109 : Project Manager<br>
+Navdeep Singh : 2310992162 : Developer<br>
+Navjot Singh : 2310992163 : Tester<br>
 
 ## Instructions for Running the Game
 1. Ensure you have Python installed on your system.
