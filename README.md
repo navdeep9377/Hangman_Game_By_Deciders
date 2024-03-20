@@ -12,4 +12,4 @@
         Task 1: <br>
               Gathered the knowledge of the Project. <br>
         Task 2:<br>
-              Completed the initial code for the Hangman Game.
+              Completed the initial code for the Hangman Game..
