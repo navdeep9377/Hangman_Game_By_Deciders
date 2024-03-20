@@ -10,10 +10,10 @@ Navjot Singh : 2310992163 : Tester<br>
 
 ## Instructions for Running the Game
 1. Ensure you have Python installed on your system.
-2. Download the `hangman.py` file.
+2. Download the `Hangman game.py` file.
 3. Open a terminal or command prompt.
-4. Navigate to the directory where `hangman.py` is located.
-5. Run the command `python hangman.py`.
+4. Navigate to the directory where `Hangman game.py` is located.
+5. Run the command `python Hangman game.py`.
 6. Follow the on-screen instructions to play the game.
 
 ## Additional Features or Notes
