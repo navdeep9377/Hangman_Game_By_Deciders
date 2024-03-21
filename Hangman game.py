@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import random
 
 HANGMAN_PICS = ['''
@@ -67,44 +61,44 @@ hint_list = {
     "coin": "It's a flat, usually round piece of metal or other material used as money."
 }
 
-lives = 6
+def get_display(word, guessed_letters):
+    return ''.join(letter if letter in guessed_letters else '_ ' for letter in word)
 
-chosen_word = random.choice(word_list)
-
-display = ['_'] * len(chosen_word)
-
-print(display)
-
-game_over = False
-
-hint_used = False  
-
-print("Welcome to Hangman! Type 'hint' during the game to receive a hint about the word.")
-
-while not game_over:
-    guessed_letter = input("Guess a letter: ").lower()
+def main():
+    lives = 6
+    chosen_word = random.choice(word_list)
+    guessed_letters = set()
+    hint_used = False
+    print("Welcome to Hangman! Type 'hint' during the game to receive a hint about the word.")
     
-    if guessed_letter == "hint" and not hint_used:
-        hint_used = True
-        print("Hint:", hint_list[chosen_word])
-        
-    else:
-        for position in range(len(chosen_word)):
-            letter = chosen_word[position]
-            if letter == guessed_letter:
-                display[position] = guessed_letter
-        
+    while lives > 0:
+        display = get_display(chosen_word, guessed_letters)
         print(display)
+        if display == chosen_word:
+            print("Congratulations! You've guessed the word:", chosen_word)
+            break
         
-        if guessed_letter not in chosen_word:
-            lives -= 1
-            if lives == 0:
-                game_over = True
-                print("YOU LOSE !!")
+        guessed_letter = input("Guess a letter: ").lower()
         
-        if '_' not in display:
-            game_over = True
-            print("YOU WIN")
-        
-        print(HANGMAN_PICS[lives])
+        if guessed_letter == "hint" and not hint_used:
+            hint_used = True
+            print("Hint:", hint_list[chosen_word])
+        elif guessed_letter in guessed_letters:
+            print("You've already guessed that letter.")
+        else:
+            guessed_letters.add(guessed_letter)
+            if guessed_letter not in chosen_word:
+                lives -= 1
+                print(HANGMAN_PICS[lives])
+    
+    if lives == 0:
+        print("You ran out of lives! The word was:", chosen_word)
 
+    play_again = input("Do you want to play again? (yes/no): ").lower()
+    if play_again == "yes":
+        main()
+    else:
+        print("Thanks for playing!")
+
+if __name__ == "__main__":
+    main()
