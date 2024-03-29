@@ -1,0 +1,125 @@
+import random
+import tkinter as tk
+
+# Your existing Hangman data and functions
+HANGMAN_PICS = ['''
+     +---+
+     O   |
+    /|\  |
+    / \  |
+        ===     ''', '''
+    +---+
+    O   |
+   /|\  |
+   /    |
+       ===        ''', '''
+    +---+
+    O   |
+   /|\  |
+        |
+       ===        ''', '''
+    +---+
+    O   |
+   /|   |
+        |
+       ===     ''', '''
+    +---+
+    O   |
+    |   |
+        |
+       ===       ''', '''
+    +---+
+    O   |
+        |
+        |
+       ===      ''', '''
+    +---+
+        |
+        |
+        |
+       ===          ''']
+
+word_list = ["incorrectly", "staircase", "age", "bed", "ton", "river", "comb", "fire", "breath", "hole", "nine",
+             "needle", "envelope", "clock", "silence", "palm", "cold", "coin"]
+
+hint_list = {
+    "incorrectly": "This adverb describes an action performed wrongly.",
+    "staircase": "It's a series of steps arranged in a sequence to reach different levels of a building.",
+    "age": "It refers to the length of time that a person or thing has existed.",
+    "bed": "It's a piece of furniture for sleeping or resting.",
+    "ton": "It's a unit of weight equal to 2,000 pounds.",
+    "river": "It's a natural flowing watercourse, usually freshwater, flowing towards an ocean, sea, lake or another river.",
+    "comb": "It's a strip with a row of narrow teeth that are used to untangle or arrange hair.",
+    "fire": "It's the rapid oxidation of a material in the exothermic chemical process of combustion.",
+    "breath": "It's the process of taking air into the lungs and expelling it, especially as a physiological process.",
+    "hole": "It's an opening or hollow place in or through a solid body or surface.",
+    "nine": "It's the number that comes after eight and before ten.",
+    "needle": "It's a slender, pointed device used for sewing or surgical suturing.",
+    "envelope": "It's a flat, usually rectangular-shaped paper container for a letter.",
+    "clock": "It's an instrument for measuring and displaying time.",
+    "silence": "It's the absence of sound.",
+    "palm": "It's the inner surface of the hand between the wrist and fingers.",
+    "cold": "It's the absence of heat or warmth.",
+    "coin": "It's a flat, usually round piece of metal or other material used as money."
+}
+
+def get_display(word, guessed_letters):
+    return ''.join(letter if letter in guessed_letters else '_ ' for letter in word)
+
+def main():
+    # Function to handle a guess
+    def guess_letter():
+        nonlocal lives
+        letter = entry.get().lower()
+        entry.delete(0, tk.END)
+        if letter == "hint" and not hint_used:
+            hint_label.config(text="Hint: " + hint_list[chosen_word])
+            hint_used = True
+        elif letter in guessed_letters:
+            message_label.config(text="You've already guessed that letter.")
+        else:
+            guessed_letters.add(letter)
+            if letter not in chosen_word:
+                lives -= 1
+                hangman_label.config(text=HANGMAN_PICS[lives])
+                if lives == 0:
+                    message_label.config(text="You ran out of lives! The word was: " + chosen_word)
+                else:
+                    message_label.config(text="Incorrect guess. Try again. Lives left: " + str(lives))
+            else:
+                display = get_display(chosen_word, guessed_letters)
+                display_label.config(text=display)
+                if display == chosen_word:
+                    message_label.config(text="Congratulations! You've guessed the word: " + chosen_word)
+
+    # Setup GUI
+    window = tk.Tk()
+    window.title("Hangman Game")
+
+    chosen_word = random.choice(word_list)
+    guessed_letters = set()
+    hint_used = False
+    lives = 6
+
+    hangman_label = tk.Label(window, text=HANGMAN_PICS[lives], font=("Courier", 14))
+    hangman_label.grid(row=0, column=0, columnspan=2)
+
+    display_label = tk.Label(window, text=get_display(chosen_word, guessed_letters), font=("Courier", 14))
+    display_label.grid(row=1, column=0, columnspan=2)
+
+    entry = tk.Entry(window, font=("Courier", 14))
+    entry.grid(row=2, column=0, columnspan=2)
+
+    hint_label = tk.Label(window, text="", font=("Courier", 12))
+    hint_label.grid(row=3, column=0, columnspan=2)
+
+    guess_button = tk.Button(window, text="Guess", command=guess_letter)
+    guess_button.grid(row=4, column=0, columnspan=2)
+
+    message_label = tk.Label(window, text="", font=("Courier", 12))
+    message_label.grid(row=5, column=0, columnspan=2)
+
+    window.mainloop()
+
+if __name__ == "__main__":
+    main()
