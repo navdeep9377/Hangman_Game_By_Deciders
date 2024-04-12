@@ -95,14 +95,19 @@ class HangmanGame:
         self.canvas.grid(row=4, column=0, columnspan=2)
         
         self.draw_hangman()
-    
+
+        # Virtual keyboard
+        self.keyboard_frame = tk.Frame(self.master)
+        self.keyboard_frame.grid(row=5, column=0, columnspan=2)
+        self.create_keyboard()
+
     def get_display(self):
         return ''.join(letter if letter in self.guessed_letters else '_ ' for letter in self.chosen_word)
     
     def draw_hangman(self):
         self.canvas.delete("all")  # Clear the canvas
-        self.canvas.create_text(150, 20, text="Lives Left: {}".format(self.lives), font=("Courier", 14))
         self.canvas.create_text(150, 40, text=self.HANGMAN_PICS[self.lives], font=("Courier", 14))
+        self.canvas.create_text(150, 120, text="Lives Left: {}".format(self.lives), font=("Courier", 14))
     
     def guess_letter(self):
         guessed_letter = self.guess_entry.get().lower()
@@ -136,10 +141,27 @@ class HangmanGame:
         
         messagebox.showinfo("Hint", self.hint_list[self.chosen_word])
         self.hint_used = True
+    
+    def create_keyboard(self):
+        alphabet = 'qwertyuiopasdfghjklzxcvbnm'
+        row_num = 0
+        col_num = 0
+        for i, letter in enumerate(alphabet):
+            if i % 7 == 0 and i != 0:
+                row_num += 1
+                col_num = 0
+            btn = tk.Button(self.keyboard_frame, text=letter, font=("Courier", 14), width=3, height=1, command=lambda l=letter: self.guess_from_keyboard(l))
+            btn.grid(row=row_num, column=col_num, padx=2, pady=2)
+            col_num += 1
+
+    def guess_from_keyboard(self, letter):
+        self.guess_entry.delete(0, tk.END)
+        self.guess_entry.insert(tk.END, letter)
+        self.guess_letter()
 
 def main():
     root = tk.Tk()
-    hangman_game = HangmanGame(root)
+    HangmanGame(root)
     root.mainloop()
 
 if __name__ == "__main__":
